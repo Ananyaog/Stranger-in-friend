@@ -1,0 +1,118 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctjhh7u73ub8c"]
+
+[ext_resource type="Script" path="res://scripts/gas_pump.gd" id="1_pump_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(12, 0.2, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.2, 0.2, 0.22, 1)
+roughness = 0.65
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+material = SubResource("StandardMaterial3D_1")
+size = Vector3(12, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2"]
+material = SubResource("StandardMaterial3D_1")
+size = Vector3(13, 0.5, 11)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.9, 0.1, 0.1, 1)
+emission_enabled = true
+emission = Color(0.9, 0.1, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_3"]
+material = SubResource("StandardMaterial3D_2")
+size = Vector3(4, 0.8, 0.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+material = SubResource("StandardMaterial3D_1")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 4.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(1.2, 1.8, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.7, 0.72, 0.75, 1)
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_4"]
+material = SubResource("StandardMaterial3D_3")
+size = Vector3(1.2, 1.8, 0.6)
+
+[node name="GasStation" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_1")
+
+[node name="Canopy" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+
+[node name="RoofMesh" type="MeshInstance3D" parent="Canopy"]
+mesh = SubResource("BoxMesh_2")
+
+[node name="NeonSign" type="MeshInstance3D" parent="Canopy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.638122, 5.1736)
+mesh = SubResource("BoxMesh_3")
+
+[node name="SignLight" type="SpotLight3D" parent="Canopy/NeonSign"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
+light_color = Color(0.9, 0.1, 0.1, 1)
+light_energy = 3.0
+shadow_enabled = false
+spot_range = 8.0
+spot_angle = 55.0
+
+[node name="Column1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.25, -4)
+mesh = SubResource("CylinderMesh_1")
+
+[node name="Column2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2.25, -4)
+mesh = SubResource("CylinderMesh_1")
+
+[node name="Column3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.25, 4)
+mesh = SubResource("CylinderMesh_1")
+
+[node name="Column4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2.25, 4)
+mesh = SubResource("CylinderMesh_1")
+
+[node name="DispenserPump" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DispenserPump"]
+shape = SubResource("BoxShape3D_2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DispenserPump"]
+mesh = SubResource("BoxMesh_4")
+
+[node name="FluorescentCeilingLight" type="OmniLight3D" parent="DispenserPump"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55467, 0)
+light_color = Color(0.835294, 0.835294, 0.27451, 1)
+light_energy = 2.0
+shadow_enabled = false
+omni_range = 10.0
+
+[node name="DispenserInteractable" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.65)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_pump_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DispenserInteractable"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+shape = SubResource("BoxShape3D_2")

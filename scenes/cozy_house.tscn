@@ -1,0 +1,432 @@
+[gd_scene load_steps=31 format=3 uid="uid://blnryahxxebf4"]
+
+[ext_resource type="Script" path="res://scripts/cozy_house_manager.gd" id="1_manager_script"]
+[ext_resource type="PackedScene" path="res://scenes/cozy_house_player.tscn" id="2_player_scene"]
+[ext_resource type="ArrayMesh" uid="uid://ylaggirayf24" path="res://Assets/SofaLong.obj" id="3_bdof2"]
+[ext_resource type="ArrayMesh" uid="uid://cqjgbh817rxpf" path="res://Assets/Vase.obj" id="4_brxqw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Floor"]
+albedo_color = Color(0.28, 0.2, 0.15, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Walls"]
+albedo_color = Color(0.85, 0.82, 0.78, 1)
+roughness = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Couch"]
+size = Vector3(2.2, 0.8, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Wood"]
+albedo_color = Color(0.38, 0.24, 0.14, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Couch"]
+albedo_color = Color(0.18, 0.24, 0.28, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_TVScreen"]
+albedo_color = Color(0.15, 0.35, 0.45, 1)
+emission_enabled = true
+emission = Color(0.15, 0.35, 0.45, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Lamp"]
+albedo_color = Color(0.95, 0.82, 0.45, 1)
+emission_enabled = true
+emission = Color(0.95, 0.82, 0.45, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Fridge"]
+size = Vector3(1, 1.8, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stucco"]
+albedo_color = Color(0.82, 0.85, 0.88, 1)
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_Fridge"]
+material = SubResource("StandardMaterial3D_Stucco")
+size = Vector3(1, 1.8, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_FridgeDoor"]
+material = SubResource("StandardMaterial3D_Stucco")
+size = Vector3(1, 1.76, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Milk"]
+material = SubResource("StandardMaterial3D_Lamp")
+size = Vector3(0.16, 0.35, 0.16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Counter"]
+size = Vector3(2.4, 0.85, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Counter"]
+material = SubResource("StandardMaterial3D_Wood")
+size = Vector3(2.4, 0.85, 0.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Jar"]
+material = SubResource("StandardMaterial3D_Couch")
+top_radius = 0.08
+bottom_radius = 0.08
+height = 0.22
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Metal"]
+albedo_color = Color(0.72, 0.75, 0.78, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Kettle"]
+material = SubResource("StandardMaterial3D_Metal")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.25
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Steam"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.95, 0.95, 0.95, 0.35)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_Steam"]
+material = SubResource("StandardMaterial3D_Steam")
+size = Vector2(0.12, 0.12)
+
+[sub_resource type="Curve" id="Curve_Steam"]
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_Steam"]
+colors = PackedColorArray(0.95, 0.95, 0.95, 0.4, 1, 1, 1, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Table"]
+size = Vector3(1.4, 0.75, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_TableTop"]
+material = SubResource("StandardMaterial3D_Wood")
+size = Vector3(1.4, 0.05, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_TableLeg"]
+material = SubResource("StandardMaterial3D_Wood")
+size = Vector3(0.08, 0.7, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Shelf"]
+material = SubResource("StandardMaterial3D_Wood")
+size = Vector3(1.6, 0.06, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Cup"]
+material = SubResource("StandardMaterial3D_Walls")
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.12
+radial_segments = 6
+
+[node name="CozyHouse" type="Node3D"]
+script = ExtResource("1_manager_script")
+
+[node name="CozyPlayer" parent="." instance=ExtResource("2_player_scene")]
+transform = Transform3D(0.996636, 0, -0.0819557, 0, 1, 0, 0.0819557, 0, 0.996636, 0.27852, 0.1, -0.361353)
+WALK_SPEED = 3.0
+SPRINT_SPEED = 5.0
+
+[node name="Structure" type="Node3D" parent="."]
+
+[node name="Shell" type="CSGCombiner3D" parent="Structure"]
+use_collision = true
+collision_mask = 6
+
+[node name="Floor" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(12, 0.2, 10)
+material = SubResource("StandardMaterial3D_Floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+size = Vector3(12, 0.2, 10)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="WallBack" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 4.9)
+size = Vector3(12, 3, 0.2)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="WallFront" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -4.9)
+size = Vector3(12, 3, 0.2)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="WallLeft" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9, 1.5, 0)
+size = Vector3(0.2, 3, 10)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="WallRight" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9, 1.5, 0)
+size = Vector3(0.2, 3, 10)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="WallKitchenDivider" type="CSGBox3D" parent="Structure/Shell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.5, 2.5)
+size = Vector3(0.15, 3, 4.8)
+material = SubResource("StandardMaterial3D_Walls")
+
+[node name="LivingRoom" type="Node3D" parent="."]
+
+[node name="Couch" type="StaticBody3D" parent="LivingRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LivingRoom/Couch"]
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="CSGCouch" type="CSGCombiner3D" parent="LivingRoom/Couch"]
+
+[node name="SofaLong" type="MeshInstance3D" parent="LivingRoom/Couch/CSGCouch"]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.0401443, -0.381237, 0.154)
+mesh = ExtResource("3_bdof2")
+
+[node name="CouchInteractable" type="StaticBody3D" parent="LivingRoom/Couch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape3D" parent="LivingRoom/Couch/CouchInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0889499)
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="CRT_TV" type="Node3D" parent="LivingRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -3.8)
+
+[node name="Cabinet" type="CSGBox3D" parent="LivingRoom/CRT_TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+size = Vector3(1.8, 0.3, 0.8)
+material = SubResource("StandardMaterial3D_Wood")
+
+[node name="TVBody" type="CSGBox3D" parent="LivingRoom/CRT_TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+size = Vector3(0.9, 0.7, 0.6)
+material = SubResource("StandardMaterial3D_Couch")
+
+[node name="TVScreen" type="CSGBox3D" parent="LivingRoom/CRT_TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.29)
+size = Vector3(0.76, 0.56, 0.05)
+material = SubResource("StandardMaterial3D_TVScreen")
+
+[node name="ScreenGlow" type="OmniLight3D" parent="LivingRoom/CRT_TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.6)
+light_color = Color(0.2, 0.75, 1, 1)
+light_energy = 0.8
+omni_range = 4.0
+
+[node name="StaticAudio" type="AudioStreamPlayer3D" parent="LivingRoom/CRT_TV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+volume_db = -22.0
+max_distance = 6.0
+
+[node name="TableLamp" type="Node3D" parent="LivingRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, -3.8)
+
+[node name="Base" type="CSGCylinder3D" parent="LivingRoom/TableLamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+radius = 0.1
+height = 0.8
+material = SubResource("StandardMaterial3D_Wood")
+
+[node name="Bulb" type="CSGSphere3D" parent="LivingRoom/TableLamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+radius = 0.18
+material = SubResource("StandardMaterial3D_Lamp")
+
+[node name="LampLight" type="OmniLight3D" parent="LivingRoom/TableLamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(1, 0.8, 0.35, 1)
+light_energy = 1.3
+omni_range = 8.0
+
+[node name="TickingClock" type="Node3D" parent="LivingRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.8)
+
+[node name="Face" type="CSGCylinder3D" parent="LivingRoom/TickingClock"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+radius = 0.25
+height = 0.05
+sides = 6
+material = SubResource("StandardMaterial3D_Lamp")
+
+[node name="ClockAudio" type="AudioStreamPlayer3D" parent="LivingRoom/TickingClock"]
+volume_db = -12.0
+autoplay = true
+max_distance = 6.0
+
+[node name="SirenAudio" type="AudioStreamPlayer3D" parent="LivingRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 8)
+volume_db = -12.0
+max_distance = 25.0
+
+[node name="Kitchen" type="Node3D" parent="."]
+
+[node name="Refrigerator" type="StaticBody3D" parent="Kitchen"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2, 0.9, 3.8)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/Refrigerator"]
+shape = SubResource("BoxShape3D_Fridge")
+
+[node name="FridgeBody" type="MeshInstance3D" parent="Kitchen/Refrigerator"]
+mesh = SubResource("BoxMesh_Fridge")
+
+[node name="InteriorLight" type="OmniLight3D" parent="Kitchen/Refrigerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.2)
+light_color = Color(0.9, 0.95, 1, 1)
+light_energy = 0.5
+omni_range = 3.0
+
+[node name="FridgeInteractable" type="StaticBody3D" parent="Kitchen/Refrigerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Kitchen/Refrigerator/FridgeInteractable"]
+shape = SubResource("BoxShape3D_Fridge")
+
+[node name="DoorPivot" type="Node3D" parent="Kitchen/Refrigerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.45)
+
+[node name="FridgeDoor" type="MeshInstance3D" parent="Kitchen/Refrigerator/DoorPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("BoxMesh_FridgeDoor")
+
+[node name="MilkCarton" type="StaticBody3D" parent="Kitchen/Refrigerator/DoorPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.2, 0.15)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/Refrigerator/DoorPivot/MilkCarton"]
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="Box" type="MeshInstance3D" parent="Kitchen/Refrigerator/DoorPivot/MilkCarton"]
+gi_mode = 0
+mesh = SubResource("BoxMesh_Milk")
+
+[node name="Counter" type="StaticBody3D" parent="Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.425, 0.8)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/Counter"]
+shape = SubResource("BoxShape3D_Counter")
+
+[node name="Base" type="MeshInstance3D" parent="Kitchen/Counter"]
+mesh = SubResource("BoxMesh_Counter")
+
+[node name="CoffeePowder" type="StaticBody3D" parent="Kitchen/Counter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.55, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/Counter/CoffeePowder"]
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="Jar" type="MeshInstance3D" parent="Kitchen/Counter/CoffeePowder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22887, 0, 0)
+mesh = SubResource("CylinderMesh_Jar")
+
+[node name="Kettle" type="Node3D" parent="Kitchen/Counter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.55, 0)
+
+[node name="KettleInteractable" type="StaticBody3D" parent="Kitchen/Counter/Kettle"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/Counter/Kettle/KettleInteractable"]
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="Pot" type="MeshInstance3D" parent="Kitchen/Counter/Kettle"]
+mesh = SubResource("CylinderMesh_Kettle")
+
+[node name="BoilAudio" type="AudioStreamPlayer3D" parent="Kitchen/Counter/Kettle"]
+volume_db = -10.0
+max_distance = 6.0
+
+[node name="SteamParticles" type="CPUParticles3D" parent="Kitchen/Counter/Kettle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+emitting = false
+amount = 10
+lifetime = 1.2
+mesh = SubResource("QuadMesh_Steam")
+direction = Vector3(0, 1, 0)
+spread = 15.0
+gravity = Vector3(0, 0.2, 0)
+initial_velocity_min = 0.4
+initial_velocity_max = 0.6
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+scale_amount_curve = SubResource("Curve_Steam")
+color_ramp = SubResource("Gradient_Steam")
+
+[node name="DiningTable" type="StaticBody3D" parent="Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -2.5)
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/DiningTable"]
+shape = SubResource("BoxShape3D_Table")
+
+[node name="Top" type="MeshInstance3D" parent="Kitchen/DiningTable"]
+mesh = SubResource("BoxMesh_TableTop")
+
+[node name="Leg1" type="MeshInstance3D" parent="Kitchen/DiningTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.35, -0.35)
+mesh = SubResource("BoxMesh_TableLeg")
+
+[node name="Leg2" type="MeshInstance3D" parent="Kitchen/DiningTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.35, -0.35)
+mesh = SubResource("BoxMesh_TableLeg")
+
+[node name="Leg3" type="MeshInstance3D" parent="Kitchen/DiningTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.35, 0.35)
+mesh = SubResource("BoxMesh_TableLeg")
+
+[node name="Leg4" type="MeshInstance3D" parent="Kitchen/DiningTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.35, 0.35)
+mesh = SubResource("BoxMesh_TableLeg")
+
+[node name="Mug" type="Node3D" parent="Kitchen/DiningTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="SteamParticles" type="CPUParticles3D" parent="Kitchen/DiningTable/Mug"]
+emitting = false
+mesh = SubResource("QuadMesh_Steam")
+direction = Vector3(0, 1, 0)
+spread = 10.0
+gravity = Vector3(0, 0.15, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.5
+scale_amount_curve = SubResource("Curve_Steam")
+color_ramp = SubResource("Gradient_Steam")
+
+[node name="CupShelf" type="Node3D" parent="Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.8, 0.8)
+
+[node name="ShelfBox" type="MeshInstance3D" parent="Kitchen/CupShelf"]
+mesh = SubResource("BoxMesh_Shelf")
+
+[node name="CupItem" type="StaticBody3D" parent="Kitchen/CupShelf"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/CupShelf/CupItem"]
+shape = SubResource("BoxShape3D_Couch")
+
+[node name="Body" type="MeshInstance3D" parent="Kitchen/CupShelf/CupItem"]
+mesh = SubResource("CylinderMesh_Cup")
+
+[node name="KitchenCeilingLight" type="OmniLight3D" parent="Kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.8, 2.5)
+light_color = Color(1, 0.95, 0.88, 1)
+omni_range = 6.0
+
+[node name="Vase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4953, 0.849427, 1.11231)
+mesh = ExtResource("4_brxqw")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://n54rvxymqq6d"]
+
+[ext_resource type="Script" path="res://scripts/delivery_point.gd" id="1_delivery_script"]
+[ext_resource type="ArrayMesh" uid="uid://3lypktt5g1ch" path="res://Assets/Building1_Small.obj" id="2_1xemv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
+size = Vector3(1.6, 1, 1.6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4"]
+albedo_color = Color(1, 0.7, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.7, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_2"]
+material = SubResource("StandardMaterial3D_4")
+size = Vector3(0.35, 0.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wdp02"]
+size = Vector3(3.80714, 2.1471, 2.61828)
+
+[node name="House" type="Node3D"]
+
+[node name="DoorstepPoint" type="StaticBody3D" parent="." node_paths=PackedStringArray("waypoint_marker", "doorstep_glow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.8)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_delivery_script")
+waypoint_marker = NodePath("WaypointMarker")
+doorstep_glow = NodePath("GlowMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorstepPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_2")
+
+[node name="GlowMesh" type="MeshInstance3D" parent="DoorstepPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -0.0689468)
+mesh = SubResource("CylinderMesh_1")
+
+[node name="WaypointMarker" type="MeshInstance3D" parent="DoorstepPoint"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.8, 0)
+mesh = SubResource("PrismMesh_2")
+
+[node name="Building1Small" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0.0161138, 0, -2.15967)
+mesh = ExtResource("2_1xemv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building1Small"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0273728, 1.15053, 0)
+shape = SubResource("BoxShape3D_wdp02")
