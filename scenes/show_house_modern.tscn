@@ -3,18 +3,19 @@
 [ext_resource type="ArrayMesh" uid="uid://bgtwcbom6dfnd" path="res://Assets/Building4.obj" id="1_8aprl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fvie0"]
-size = Vector3(4.57, 2.0, 3.81)
+size = Vector3(4.57, 2, 3.81)
 
 [node name="ShowHouseModern" type="Node3D"]
 
 [node name="Body" type="StaticBody3D" parent="."]
-collision_layer = 1
 collision_mask = 6
 
 [node name="Mesh" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0)
 mesh = ExtResource("1_8aprl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Body"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09, 0)
 shape = SubResource("BoxShape3D_fvie0")

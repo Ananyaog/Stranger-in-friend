@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2cc30qnup6qj"]
+
+[ext_resource type="ArrayMesh" uid="uid://bs1yj68q1hvc0" path="res://Assets/House2.obj" id="1_ya1lf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3yrne"]
+size = Vector3(3.59245, 2.61052, 2.73026)
+
+[node name="House2" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ya1lf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34118, 0)
+shape = SubResource("BoxShape3D_3yrne")

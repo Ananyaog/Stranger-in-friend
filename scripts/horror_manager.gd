@@ -60,16 +60,13 @@ func _on_delivery_status_changed(delivered: int, total: int) -> void:
 	# Trigger spooky events at delivery milestones
 	if delivered == 1:
 		flicker_random_streetlight()
-	elif delivered == 2:
-		spawn_stalker()
-	elif delivered == 3:
+	
 		# Double flicker event
 		flicker_random_streetlight()
 		# Add a delay and flicker another
 		var timer = get_tree().create_timer(1.5)
 		timer.timeout.connect(flicker_random_streetlight)
-	elif delivered == 4:
-		spawn_stalker()
+
 
 func flicker_random_streetlight() -> void:
 	if streetlights.size() == 0:

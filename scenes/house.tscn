@@ -50,6 +50,8 @@ mesh = SubResource("PrismMesh_2")
 transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0.0161138, 0, -2.15967)
 mesh = ExtResource("2_1xemv")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Building1Small"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Building1Small"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building1Small/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0273728, 1.15053, 0)
 shape = SubResource("BoxShape3D_wdp02")

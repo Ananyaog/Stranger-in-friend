@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://blnryahxxebf4"]
+[gd_scene load_steps=29 format=3]
 
 [ext_resource type="Script" path="res://scripts/cozy_house_manager.gd" id="1_manager_script"]
 [ext_resource type="PackedScene" path="res://scenes/cozy_house_player.tscn" id="2_player_scene"]
 [ext_resource type="ArrayMesh" uid="uid://ylaggirayf24" path="res://Assets/SofaLong.obj" id="3_bdof2"]
 [ext_resource type="ArrayMesh" uid="uid://cqjgbh817rxpf" path="res://Assets/Vase.obj" id="4_brxqw"]
+[ext_resource type="ArrayMesh" uid="uid://dlepj5nwuypby" path="res://Assets/Bed.obj" id="5_bslw3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Floor"]
 albedo_color = Color(0.28, 0.2, 0.15, 1)
@@ -101,17 +102,6 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_Steam"]
 colors = PackedColorArray(0.95, 0.95, 0.95, 0.4, 1, 1, 1, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_Table"]
-size = Vector3(1.4, 0.75, 0.9)
-
-[sub_resource type="BoxMesh" id="BoxMesh_TableTop"]
-material = SubResource("StandardMaterial3D_Wood")
-size = Vector3(1.4, 0.05, 0.9)
-
-[sub_resource type="BoxMesh" id="BoxMesh_TableLeg"]
-material = SubResource("StandardMaterial3D_Wood")
-size = Vector3(0.08, 0.7, 0.08)
-
 [sub_resource type="BoxMesh" id="BoxMesh_Shelf"]
 material = SubResource("StandardMaterial3D_Wood")
 size = Vector3(1.6, 0.06, 0.3)
@@ -127,7 +117,7 @@ radial_segments = 6
 script = ExtResource("1_manager_script")
 
 [node name="CozyPlayer" parent="." instance=ExtResource("2_player_scene")]
-transform = Transform3D(0.996636, 0, -0.0819557, 0, 1, 0, 0.0819557, 0, 0.996636, 0.27852, 0.1, -0.361353)
+transform = Transform3D(0.996636, 0, -0.0819557, 0, 1, 0, 0.0819557, 0, 0.996636, 0.27852, -0.0326026, -0.361353)
 WALK_SPEED = 3.0
 SPRINT_SPEED = 5.0
 
@@ -226,7 +216,7 @@ volume_db = -22.0
 max_distance = 6.0
 
 [node name="TableLamp" type="Node3D" parent="LivingRoom"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, -3.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24173, 0, 0.050046)
 
 [node name="Base" type="CSGCylinder3D" parent="LivingRoom/TableLamp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
@@ -249,7 +239,7 @@ omni_range = 8.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.8)
 
 [node name="Face" type="CSGCylinder3D" parent="LivingRoom/TickingClock"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0571823, 0, 0)
 radius = 0.25
 height = 0.05
 sides = 6
@@ -365,46 +355,6 @@ scale_amount_max = 1.2
 scale_amount_curve = SubResource("Curve_Steam")
 color_ramp = SubResource("Gradient_Steam")
 
-[node name="DiningTable" type="StaticBody3D" parent="Kitchen"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.375, -2.5)
-collision_mask = 6
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Kitchen/DiningTable"]
-shape = SubResource("BoxShape3D_Table")
-
-[node name="Top" type="MeshInstance3D" parent="Kitchen/DiningTable"]
-mesh = SubResource("BoxMesh_TableTop")
-
-[node name="Leg1" type="MeshInstance3D" parent="Kitchen/DiningTable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.35, -0.35)
-mesh = SubResource("BoxMesh_TableLeg")
-
-[node name="Leg2" type="MeshInstance3D" parent="Kitchen/DiningTable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.35, -0.35)
-mesh = SubResource("BoxMesh_TableLeg")
-
-[node name="Leg3" type="MeshInstance3D" parent="Kitchen/DiningTable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.35, 0.35)
-mesh = SubResource("BoxMesh_TableLeg")
-
-[node name="Leg4" type="MeshInstance3D" parent="Kitchen/DiningTable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.35, 0.35)
-mesh = SubResource("BoxMesh_TableLeg")
-
-[node name="Mug" type="Node3D" parent="Kitchen/DiningTable"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-
-[node name="SteamParticles" type="CPUParticles3D" parent="Kitchen/DiningTable/Mug"]
-emitting = false
-mesh = SubResource("QuadMesh_Steam")
-direction = Vector3(0, 1, 0)
-spread = 10.0
-gravity = Vector3(0, 0.15, 0)
-initial_velocity_min = 0.3
-initial_velocity_max = 0.5
-scale_amount_curve = SubResource("Curve_Steam")
-color_ramp = SubResource("Gradient_Steam")
-
 [node name="CupShelf" type="Node3D" parent="Kitchen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1.8, 0.8)
 
@@ -430,3 +380,7 @@ omni_range = 6.0
 [node name="Vase" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4953, 0.849427, 1.11231)
 mesh = ExtResource("4_brxqw")
+
+[node name="Bed" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.00164065, 0, 2, 0, 2, 0, -2, 0, -0.00164065, 3.99726, 0, 3.32517)
+mesh = ExtResource("5_bslw3")

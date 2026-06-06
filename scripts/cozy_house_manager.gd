@@ -4,26 +4,26 @@ extends Node3D
 # DIALOGUE CONTENT — Replace "Dialogue Here" with your own text
 # ============================================================
 var intro_dialogues: Array = [
-	"Dialogue Here",  # 1
-	"Dialogue Here",  # 2
-	"Dialogue Here",  # 3
-	"Dialogue Here",  # 4
-	"Dialogue Here",  # 5
-	"Dialogue Here",  # 6
-	"Dialogue Here",  # 7
-	"Dialogue Here",  # 8
+	"After a long tiring day here Im.",  # 1
+	"All this just to make it through a decent life",  # 2
+	".....",  # 3
+	"Should i quit this job ?",  # 4
+	"I think i should but.. There's much more competiton out there.",  # 5
+	"Some are grinding from their highschools for the job i'll apply for",  # 6
+	"Ahh.. Leave it. Anyways, Im not a streamer who can just play and upload to get bundles of bucks... like most of the fat streamer does",  # 7
+	"Im no",  # 8
 ]
 
 var coffee_dialogues: Array = [
-	"Dialogue Here",  # 1
-	"Dialogue Here",  # 2
-	"Dialogue Here",  # 3
+	"This house is old but feels much comfortable than those silent streets",  # 1
+	"Let's watch some news alongwith this warm and hard coffee",  # 2
+	"This should work for me",  # 3
 ]
 
 var tv_dialogues: Array = [
-	"Dialogue Here",  # 1
-	"Dialogue Here",  # 2
-	"Dialogue Here",  # 3
+	"Another creature sighting... people really are seeing something out there.",  # 1
+	"Still, missing people aren't exactly something to joke about.",  # 2
+	"Eh... probably just another news story. I should finish my coffee.",  # 3
 ]
 
 var phone_dialogues: Array = [
